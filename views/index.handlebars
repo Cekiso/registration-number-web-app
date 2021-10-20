@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+
+<body>
+    <section class="main">
+         <h1>Registration Numbers</h1>
+        <form action="/Registration-number" method="POST">
+        
+       
+        <div class="errors"></div>
+        <label for="">Reg Numbers</label>
+        <input type="text" placeholder="CA XXX XXX CJ XXX-XXX GP XXXXX" class="regNo" name="number">
+        <button type="submit" class="bttn">Add</button>
+        <div class="radio">
+            <label for="">Cape Town</label>
+            <input type="radio" class="town" name="place" value="CA">
+            <label for="">Paarl</label>
+            <input type="radio" class="town" name="place" value="CJ">
+            <label for="">Gauteng</label>
+            <input type="radio" class="town" name="place" value="GP">
+            <label for="">Show All</label>
+            <input type="radio" class="ShowAll" name="place" value="ShowAll">
+            <button class="clearBttn" type="reset" value="Reset">Clear</button>
+
+        </div><br>
+        <div class="message" id="lists">
+                  {{#each regNo1}}
+        <tr>
+            <li>{{this}}</li>
+        </tr>
+        {{/each}}
+           
+        </div>
+        </form>
+    </section>
+
+
+</body>
+</html>
