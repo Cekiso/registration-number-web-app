@@ -10,7 +10,15 @@ const Pool = pg.Pool;
 
 let app = express();
 
-const connectionString = process.env.DATABASE_URL || 'postgresql://nkully:nkully@localhost:5432/users';
+
+// should we use a SSL connection
+let useSSL = false;
+let local = process.env.LOCAL || false;
+if (process.env.DATABASE_URL && !local) {
+    useSSL = true;
+}
+
+const connectionString = process.env.DATABASE_URL || 'postgresql://nkully:nkully@localhost:5432/user';
 
 const pool = new Pool({
     connectionString: connectionString,
@@ -19,7 +27,9 @@ const pool = new Pool({
     }
 
 });
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
+app.engine('handlebars', exphbs({
+    defaultLayout: 'main'
+}));
 app.set('view engine', 'handlebars');
 
 app.use(express.static('public'));
@@ -32,7 +42,7 @@ app.use(session({
     saveUninitialized: true
 }));
 
-const registration = reg();
+const registration = reg(pool);
 // const route = routes(registration)
 console.log(pool)
 
@@ -47,24 +57,43 @@ app.use(bodyParser.json())
 app.use(flash());
 
 //Home
-app.get("/", function(req, res) {
-    res.render("index", {
+app.get("/", async function(req, res) {
+    try {
+
+        res.render("index", {
+            regNo1: await registration.showReg()
 
 
-    });
+        });
+        console.log(await registration.showReg());
+    } catch (error) {
+        console.log(error)
+    }
 });
 
-app.post('/Registration-number', function(req, res) {
-    const plate = req.body.number;
-    console.log(plate);
-    const select = req.body.place;
+app.post('/Registration-number', async function(req, res) {
 
-    registration.setReg(plate)
-    res.render("index", {
-        regNo1: registration.Names()
+    let intake = req.body.number
 
-    });
+    await registration.regTake(intake);
 
+    await registration.regTake(intake)
+    console.log(await registration.regTake(intake));
+
+
+
+    res.redirect('/')
+})
+
+app.post('/reset', async function(req, res) {
+    try {
+
+        await registration.clear();
+        res.redirect('/')
+
+    } catch (error) {
+        console.log(error)
+    }
 })
 
 
