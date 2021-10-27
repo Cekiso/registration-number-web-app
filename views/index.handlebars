@@ -25,12 +25,11 @@
             <input type="radio" class="town" name="place" value="GP">
             <label for="">Show All</label>
             <input type="radio" class="ShowAll" name="place" value="ShowAll">
-            
-            <form action="/reset" method="POST">
-            <button class="clearBttn" type="submit" value="Reset">Clear</button>
-        </form>
+        
+            </div><br>
+          
 
-        </div><br>
+        
         <div class="message" id="lists">
                   {{#each regNo1}}
         <tr>
@@ -40,7 +39,13 @@
            
   
         </div>
+        
         </form>
+              <div><br>
+            <form action="/reset" method="POST">
+            <button class="clearBttn" type="submit" value="Reset">Clear</button>
+        </form>
+          </div> 
     </section>
 
 

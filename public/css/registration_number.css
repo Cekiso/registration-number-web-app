@@ -1,8 +1,9 @@
 body {
     text-align: center;
     font-size: 20px;
-    background: rgb(98, 0, 255) url("https://media.giphy.com/media/QZEIvaFhRKW3Mrrwol/giphy.gif") no-repeat fixed bottom left;
+    /* background: rgb(98, 0, 255) url("https://media.giphy.com/media/QZEIvaFhRKW3Mrrwol/giphy.gif") no-repeat fixed bottom left; */
     display: flex;
+    background: palevioletred;
     justify-content: space-around;
 }
 
